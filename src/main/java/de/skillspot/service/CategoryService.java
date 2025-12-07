@@ -5,6 +5,8 @@ import de.skillspot.mapper.CategoryMapper;
 import de.skillspot.store.CategoryStore;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     private final CategoryStore categoryStore;
@@ -15,8 +17,7 @@ public class CategoryService {
         this.categoryMapper = categoryMapper;
     }
 
-    public CategoryDto loadcategories(){
-        return categoryMapper.toDto(categoryStore.loadcategories());
-
+    public List<CategoryDto> loadcategories(){
+        return categoryStore.loadcategories().stream().map(categoryMapper::toDto).toList();
     }
 }

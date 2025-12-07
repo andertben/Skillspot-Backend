@@ -1,3 +1,11 @@
-de/skillspot/app/SkillspotApplication.class
+de/skillspot/store/CategoryStore.class
+de/skillspot/mapper/CategoryMapper.class
+de/skillspot/entity/CategoryEntity.class
+de/skillspot/dto/CategoryDto.class
+de/skillspot/entity/CategoryEntity$CategoryEntityBuilder.class
 de/skillspot/configurator/SecurityConfig.class
+de/skillspot/dto/CategoryDto$CategoryDtoBuilder.class
+de/skillspot/mapper/CategoryMapperImpl.class
+de/skillspot/service/CategoryService.class
 de/skillspot/controller/CategoryController.class
+de/skillspot/SkillspotApplication.class

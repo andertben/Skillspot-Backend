@@ -1,0 +1,6 @@
+
+dump erstellen:
+pg_dump -h localhost -p 6000 -U postgres -d postgres --schema=skillspot -f psql_dump_xxx.sql
+
+dump einfügen:
+psql -h localhost -p 6000 -U postgres -d postgres -f psql_dump_20251214.sql

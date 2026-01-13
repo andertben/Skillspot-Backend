@@ -23,9 +23,9 @@ public class BuchungStore {
                         .dienstleistungId(row.getLong("dienstleistung_id"))
                         .benutzerId(row.getLong("benutzer_id"))
                         .text(row.getString("text"))
-                        .anfrageDatum(row.getTimestamp("anfrage_datum").toLocalDateTime())
+                        .anfrageDatum(row.getTimestamp("anfragedatum") != null ? row.getTimestamp("anfragedatum").toLocalDateTime() : null)
                         .status(row.getString("status"))
-                        .preis(row.getDouble("preis"))
+                        .preis(row.getObject("preis") != null ? row.getDouble("preis") : null)
                         .build()
         );
     }

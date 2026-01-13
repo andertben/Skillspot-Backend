@@ -21,10 +21,10 @@ public class AnbieterStore {
                 (row, rowNum) -> AnbieterEntity.builder()
                         .anbieterId(row.getLong("anbieter_id"))
                         .benutzerId(row.getLong("benutzer_id"))
-                        .firmenName(row.getString("firmenname"))
+                        .firmenName(row.getString("firmen_name"))
                         .beschreibung(row.getString("beschreibung"))
-                        .locationLat(row.getDouble("location_lat"))
-                        .locationLon(row.getDouble("location_lon"))
+                        .locationLat(row.getObject("location_lat") != null ? row.getDouble("location_lat") : null)
+                        .locationLon(row.getObject("location_lon") != null ? row.getDouble("location_lon") : null)
                         .build()
         );
     }

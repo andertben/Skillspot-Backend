@@ -8,7 +8,9 @@ de/skillspot/entity/BewertungEntity.class
 de/skillspot/dto/BenutzerDto.class
 de/skillspot/entity/BuchungEntity$BuchungEntityBuilder.class
 de/skillspot/dto/DienstleistungDto$DienstleistungDtoBuilder.class
+de/skillspot/configurator/JwtAudienceValidator.class
 de/skillspot/entity/BenutzerEntity.class
+de/skillspot/controller/MeController$UserInfo.class
 de/skillspot/dto/AnbieterDto.class
 de/skillspot/service/BewertungService.class
 de/skillspot/dto/AnbieterDto$AnbieterDtoBuilder.class
@@ -50,6 +52,7 @@ de/skillspot/mapper/BewertungMapperImpl.class
 de/skillspot/entity/BewertungEntity$BewertungEntityBuilder.class
 de/skillspot/mapper/BuchungMapper.class
 de/skillspot/controller/KategorieController.class
+de/skillspot/controller/MeController.class
 de/skillspot/controller/BuchungController.class
 de/skillspot/service/BuchungService.class
 de/skillspot/dto/KategorieDto$KategorieDtoBuilder.class

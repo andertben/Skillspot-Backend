@@ -21,10 +21,10 @@ public class DienstleistungStore {
                 (row, rowNum) -> DienstleistungEntity.builder()
                         .dienstleistungId(row.getLong("dienstleistung_id"))
                         .anbieterId(row.getLong("anbieter_id"))
-                        .kategorieId(row.getLong("cat_id"))
+                        .kategorieId(row.getLong("kategorie_id"))
                         .title(row.getString("title"))
                         .beschreibung(row.getString("beschreibung"))
-                        .preis(row.getDouble("preis"))
+                        .preis(row.getObject("preis") != null ? row.getDouble("preis") : null)
                         .build()
         );
     }

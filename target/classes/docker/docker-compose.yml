@@ -1,8 +1,6 @@
-
 services:
-  postgis:
-    image: postgis/postgis:17-3.5
-    container_name: postgis
+  postgres:
+    image: postgres:17
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -10,8 +8,8 @@ services:
     ports:
       - "6000:5432"
     volumes:
-      -  /Users/ben/docker/Postgis_SkillSpot:/var/lib/postgresql
+      - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
 
 volumes:
-  postgis_data:
+  postgres_data:

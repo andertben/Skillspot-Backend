@@ -17,17 +17,45 @@ public class BewertungStore {
 
     public List<BewertungEntity> loadReviews() {
         return jdbcTemplate.query(
-                "SELECT * FROM bewertung;",
-                (row, rowNum) -> BewertungEntity.builder()
-                        .bewertungId(row.getLong("bewertung_id"))
-                        .dienstleistungId(row.getLong("dienstleistung_id"))
-                        .benutzerId(row.getLong("benutzer_id"))
-                        .anbieterId(row.getObject("anbieter_id") != null ? row.getLong("anbieter_id") : null)
-                        .buchungId(row.getObject("buchung_id") != null ? row.getLong("buchung_id") : null)
-                        .bewertung(row.getObject("bewertung") != null ? row.getInt("bewertung") : null)
-                        .text(row.getString("text"))
-                        .erstellungsDatum(row.getTimestamp("erstellungsdatum") != null ? row.getTimestamp("erstellungsdatum").toLocalDateTime() : null)
-                        .build()
+                "SELECT * FROM bewertung ORDER BY erstellungsdatum DESC;",
+                (row, rowNum) -> mapRowToEntity(row)
         );
+    }
+
+    public List<BewertungEntity> findByServiceId(Long serviceId) {
+        return jdbcTemplate.query(
+                "SELECT * FROM bewertung WHERE dienstleistung_id = ? ORDER BY erstellungsdatum DESC;",
+                (row, rowNum) -> mapRowToEntity(row),
+                serviceId
+        );
+    }
+
+    public List<BewertungEntity> findByProviderId(Long providerId) {
+        return jdbcTemplate.query(
+                "SELECT * FROM bewertung WHERE anbieter_id = ? ORDER BY erstellungsdatum DESC;",
+                (row, rowNum) -> mapRowToEntity(row),
+                providerId
+        );
+    }
+
+    public Double getAverageRatingByServiceId(Long serviceId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT AVG(bewertung) FROM bewertung WHERE dienstleistung_id = ?;",
+                Double.class,
+                serviceId
+        );
+    }
+
+    private BewertungEntity mapRowToEntity(java.sql.ResultSet row) throws java.sql.SQLException {
+        return BewertungEntity.builder()
+                .bewertungId(row.getLong("bewertung_id"))
+                .dienstleistungId(row.getLong("dienstleistung_id"))
+                .benutzerId(row.getLong("benutzer_id"))
+                .anbieterId(row.getObject("anbieter_id") != null ? row.getLong("anbieter_id") : null)
+                .buchungId(row.getObject("buchung_id") != null ? row.getLong("buchung_id") : null)
+                .bewertung(row.getObject("bewertung") != null ? row.getInt("bewertung") : null)
+                .text(row.getString("text"))
+                .erstellungsDatum(row.getTimestamp("erstellungsdatum") != null ? row.getTimestamp("erstellungsdatum").toLocalDateTime() : null)
+                .build();
     }
 }

@@ -18,26 +18,32 @@ public class SecurityConfig {
 	private static final String FRONTEND_ORIGIN = "http://localhost:5173";
 
 	private static final String[] PUBLIC_ENDPOINTS = {
-			"/categories",
-			"/services",
-			"/providers",
+			"/kategorien/**",
+			"/dienstleistungen",
+			"/anbieter",
 			"/reviews",
 			"/v3/api-docs/**",
 			"/swagger-ui/**",
-			"/swagger-ui.html",
-			"/swagger-ui/index.html"
+			"/swagger-ui.html"
 	};
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-				.cors(cors -> {})
+				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth
+						.requestMatchers(org.springframework.http.HttpMethod.GET, "/dienstleistungen").permitAll()
 						.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
 						.anyRequest().authenticated()
 				)
-				.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}))
+				.oauth2ResourceServer(oauth2 -> oauth2
+						.jwt(jwt -> {})
+						.authenticationEntryPoint((request, response, authException) -> {
+							System.err.println("Auth failure: " + authException.getMessage());
+							response.sendError(401, authException.getMessage());
+						})
+				)
 				.formLogin(form -> form.disable())
 				.httpBasic(httpBasic -> httpBasic.disable());
 		return http.build();

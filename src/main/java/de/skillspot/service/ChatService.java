@@ -2,10 +2,9 @@ package de.skillspot.service;
 
 import de.skillspot.dto.ChatMessageDto;
 import de.skillspot.dto.ThreadResponse;
-import de.skillspot.entity.AnbieterEntity;
-import de.skillspot.entity.BenutzerEntity;
-import de.skillspot.entity.ChatMessageEntity;
-import de.skillspot.entity.ChatThreadEntity;
+import de.skillspot.dto.ThreadSummaryResponse;
+import de.skillspot.dto.UnreadCountResponse;
+import de.skillspot.entity.*;
 import de.skillspot.repository.ChatMessageRepository;
 import de.skillspot.repository.ChatThreadRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +45,45 @@ public class ChatService {
                     return chatThreadRepository.findByUserSubAndDienstleistungId(userSub, dienstleistungId)
                             .orElseThrow(() -> new RuntimeException("Failed to reload created thread"));
                 });
+    }
+
+    @Transactional(readOnly = true)
+    public List<ThreadSummaryResponse> getThreadSummaries(String userSub) {
+        return chatThreadRepository.findAllByUserSubOrProviderSub(userSub).stream()
+                .map(thread -> {
+                    Optional<ChatMessageEntity> lastMessageOpt = chatMessageRepository.findLatestMessageInThread(thread.getThreadId());
+                    Long unreadCount = chatMessageRepository.countUnreadMessages(thread.getThreadId(), userSub);
+
+                    ThreadResponse tr = mapToThreadResponse(thread);
+
+                    return ThreadSummaryResponse.builder()
+                            .threadId(thread.getThreadId())
+                            .dienstleistungId(thread.getDienstleistungId())
+                            .dienstleistungTitle(tr.getDienstleistungTitle())
+                            .anbieterName(tr.getAnbieterName())
+                            .lastMessageAt(lastMessageOpt.map(ChatMessageEntity::getCreatedAt).orElse(thread.getCreatedAt()))
+                            .lastMessageText(lastMessageOpt.map(ChatMessageEntity::getText).orElse(null))
+                            .unreadCount(unreadCount)
+                            .build();
+                })
+                .sorted(Comparator.comparing(ThreadSummaryResponse::getLastMessageAt).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public UnreadCountResponse getTotalUnreadCount(String userSub) {
+        return UnreadCountResponse.builder()
+                .unreadCount(chatMessageRepository.countTotalUnreadMessages(userSub))
+                .build();
+    }
+
+    @Transactional
+    public void markThreadAsRead(Long threadId, String userSub) {
+        ChatThreadEntity thread = chatThreadRepository.findById(threadId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Thread not found"));
+
+        validateParticipant(userSub, thread);
+        chatMessageRepository.markMessagesAsRead(threadId, userSub);
     }
 
     @Transactional(readOnly = true)

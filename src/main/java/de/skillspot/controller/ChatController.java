@@ -1,9 +1,6 @@
 package de.skillspot.controller;
 
-import de.skillspot.dto.ChatMessageDto;
-import de.skillspot.dto.CreateThreadRequest;
-import de.skillspot.dto.SendMessageRequest;
-import de.skillspot.dto.ThreadResponse;
+import de.skillspot.dto.*;
 import de.skillspot.entity.ChatThreadEntity;
 import de.skillspot.service.ChatService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,15 +38,28 @@ public class ChatController {
         return ResponseEntity.ok(chatService.mapToThreadResponse(thread));
     }
 
-    @Operation(summary = "List all chat threads for the authenticated user")
+    @Operation(summary = "List all chat threads for the authenticated user with summaries")
     @GetMapping("/threads")
-    public ResponseEntity<List<ThreadResponse>> listThreads(JwtAuthenticationToken auth) {
+    public ResponseEntity<List<ThreadSummaryResponse>> listThreads(JwtAuthenticationToken auth) {
         String userSub = auth.getToken().getClaimAsString("sub");
-        List<ThreadResponse> threads = chatService.listThreadsForUser(userSub)
-                .stream()
-                .map(chatService::mapToThreadResponse)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(threads);
+        return ResponseEntity.ok(chatService.getThreadSummaries(userSub));
+    }
+
+    @Operation(summary = "Get global unread count for the authenticated user")
+    @GetMapping("/unread-count")
+    public ResponseEntity<UnreadCountResponse> getUnreadCount(JwtAuthenticationToken auth) {
+        String userSub = auth.getToken().getClaimAsString("sub");
+        return ResponseEntity.ok(chatService.getTotalUnreadCount(userSub));
+    }
+
+    @Operation(summary = "Mark all messages in a thread as read")
+    @PostMapping("/threads/{threadId}/read")
+    public ResponseEntity<Void> markAsRead(
+            @PathVariable Long threadId,
+            JwtAuthenticationToken auth) {
+        String userSub = auth.getToken().getClaimAsString("sub");
+        chatService.markThreadAsRead(threadId, userSub);
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Get header details for a specific chat thread")

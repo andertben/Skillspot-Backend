@@ -24,4 +24,22 @@ public class BewertungService {
                 .map(bewertungMapper::toDto)
                 .toList();
     }
+
+    public List<BewertungDto> findByServiceId(Long serviceId) {
+        return bewertungStore.findByServiceId(serviceId)
+                .stream()
+                .map(bewertungMapper::toDto)
+                .toList();
+    }
+
+    public List<BewertungDto> findByProviderId(Long providerId) {
+        return bewertungStore.findByProviderId(providerId)
+                .stream()
+                .map(bewertungMapper::toDto)
+                .toList();
+    }
+
+    public Double getAverageRatingByServiceId(Long serviceId) {
+        return bewertungStore.getAverageRatingByServiceId(serviceId);
+    }
 }

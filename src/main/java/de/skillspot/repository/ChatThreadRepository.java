@@ -19,4 +19,7 @@ public interface ChatThreadRepository extends JpaRepository<ChatThreadEntity, Lo
 
     @Query("SELECT t FROM ChatThreadEntity t LEFT JOIN FETCH t.dienstleistung d LEFT JOIN FETCH d.anbieter a LEFT JOIN FETCH a.benutzer WHERE t.userSub = :sub OR d.anbieter.benutzer.auth0Sub = :sub")
     List<ChatThreadEntity> findAllByUserSubOrProviderSub(@Param("sub") String sub);
+
+    @Query("SELECT t FROM ChatThreadEntity t LEFT JOIN FETCH t.dienstleistung d LEFT JOIN FETCH d.anbieter a LEFT JOIN FETCH a.benutzer WHERE t.userSub = :userSub")
+    List<ChatThreadEntity> findAllByUserSub(@Param("userSub") String userSub);
 }

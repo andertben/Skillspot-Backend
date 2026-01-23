@@ -39,7 +39,7 @@ public class SecurityConfig {
 				)
 				.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}))
 				.formLogin(form -> form.disable())
-				.httpBasic(httpBasic -> {});
+				.httpBasic(httpBasic -> httpBasic.disable());
 		return http.build();
 	}
 

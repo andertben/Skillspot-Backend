@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,8 @@ public class AnbieterStore {
                     .benutzerId(row.getLong("benutzer_id"))
                     .firmenName(row.getString("firmen_name"))
                     .beschreibung(row.getString("beschreibung"))
-                    .locationLat(row.getObject("location_lat") != null ? row.getDouble("location_lat") : null)
-                    .locationLon(row.getObject("location_lon") != null ? row.getDouble("location_lon") : null)
+                    .locationLat(row.getBigDecimal("location_lat"))
+                    .locationLon(row.getBigDecimal("location_lon"))
                     .build();
 
     public AnbieterStore(JdbcTemplate jdbcTemplate) {
@@ -38,5 +39,22 @@ public class AnbieterStore {
                 benutzerId
         );
         return results.stream().findFirst();
+    }
+
+    public void upsert(Long benutzerId, String firmenName, String beschreibung, BigDecimal locationLat, BigDecimal locationLon) {
+        int updated = jdbcTemplate.update(
+                "UPDATE skillspot.anbieter " +
+                        "SET firmen_name = ?, beschreibung = ?, location_lat = ?, location_lon = ? " +
+                        "WHERE benutzer_id = ?;",
+                firmenName, beschreibung, locationLat, locationLon, benutzerId
+        );
+
+        if (updated == 0) {
+            jdbcTemplate.update(
+                    "INSERT INTO skillspot.anbieter (benutzer_id, firmen_name, beschreibung, location_lat, location_lon) " +
+                            "VALUES (?, ?, ?, ?, ?);",
+                    benutzerId, firmenName, beschreibung, locationLat, locationLon
+            );
+        }
     }
 }

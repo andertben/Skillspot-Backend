@@ -3,6 +3,8 @@ package de.skillspot.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "anbieter", schema = "skillspot")
 @Data
@@ -22,6 +24,6 @@ public class AnbieterEntity {
     
     String firmenName;
     String beschreibung;
-    Double locationLat;
-    Double locationLon;
+    BigDecimal locationLat;
+    BigDecimal locationLon;
 }

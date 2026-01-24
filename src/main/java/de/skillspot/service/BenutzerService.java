@@ -6,6 +6,7 @@ import de.skillspot.dto.GeocodingResult;
 import de.skillspot.dto.UpdateProfileRequest;
 import de.skillspot.entity.BenutzerEntity;
 import de.skillspot.mapper.BenutzerMapper;
+import de.skillspot.store.AnbieterStore;
 import de.skillspot.store.BenutzerStore;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -23,11 +24,13 @@ import java.util.Optional;
 public class BenutzerService {
 
     private final BenutzerStore benutzerStore;
+    private final AnbieterStore anbieterStore;
     private final BenutzerMapper benutzerMapper;
     private final RestTemplate restTemplate;
 
-    public BenutzerService(BenutzerStore benutzerStore, BenutzerMapper benutzerMapper) {
+    public BenutzerService(BenutzerStore benutzerStore, AnbieterStore anbieterStore, BenutzerMapper benutzerMapper) {
         this.benutzerStore = benutzerStore;
+        this.anbieterStore = anbieterStore;
         this.benutzerMapper = benutzerMapper;
         this.restTemplate = new RestTemplate();
     }
@@ -45,6 +48,18 @@ public class BenutzerService {
 
     public void completeProfile(String sub, CompleteProfileRequest req) {
         benutzerStore.upsertByAuth0Sub(sub, req.getDisplayName(), req.getRole(), null, req.getLocationLat(), req.getLocationLon());
+        
+        if ("PROVIDER".equals(req.getRole())) {
+            benutzerStore.findByAuth0Sub(sub).ifPresent(user -> {
+                anbieterStore.upsert(
+                        user.getBenutzerId(),
+                        req.getDisplayName(),
+                        null,
+                        req.getLocationLat(),
+                        req.getLocationLon()
+                );
+            });
+        }
     }
 
     public void updateProfile(String sub, UpdateProfileRequest req) {
@@ -69,6 +84,20 @@ public class BenutzerService {
                 lat,
                 lon
         );
+
+        if ("PROVIDER".equals(req.getRole())) {
+            BigDecimal finalLat = lat;
+            BigDecimal finalLon = lon;
+            benutzerStore.findByAuth0Sub(sub).ifPresent(user -> {
+                anbieterStore.upsert(
+                        user.getBenutzerId(),
+                        req.getDisplayName(),
+                        null,
+                        finalLat != null ? finalLat : user.getLocationLat(),
+                        finalLon != null ? finalLon : user.getLocationLon()
+                );
+            });
+        }
     }
 
     private GeocodingResult geocodeAddress(String address) {

@@ -1,61 +1,40 @@
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/SkillspotApplication.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/configurator/JwtAudienceValidator.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/configurator/SecurityConfig.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/AnbieterController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/BenutzerController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/BewertungController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/BuchungController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/ChatController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/DienstleistungController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/GlobalExceptionHandler.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/KategorieController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/controller/MeController.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/AnbieterDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/BenutzerDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/BewertungDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/BuchungDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/ChatMessageDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CompleteProfileRequest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CreateDienstleistungRequest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CreateThreadRequest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/DienstleistungDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/DienstleistungResponse.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/GeocodingResult.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/KategorieChildDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/KategorieDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/KategorieTreeDto.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/MeResponse.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/SendMessageRequest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/ThreadResponse.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/ThreadSummaryResponse.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/UnreadCountResponse.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/UpdateProfileRequest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/AnbieterEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/BenutzerEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/BewertungEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/BuchungEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/ChatMessageEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/ChatThreadEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/DienstleistungEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/entity/KategorieEntity.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/mapper/AnbieterMapper.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/mapper/BenutzerMapper.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/mapper/BewertungMapper.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/mapper/BuchungMapper.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/mapper/DienstleistungMapper.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/mapper/KategorieMapper.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/repository/ChatMessageRepository.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/repository/ChatThreadRepository.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/AnbieterService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/BenutzerService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/BewertungService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/BuchungService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/ChatService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/DienstleistungService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/service/KategorieService.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/store/AnbieterStore.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/store/BenutzerStore.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/store/BewertungStore.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/store/BuchungStore.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/store/DienstleistungStore.java
-/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/store/KategorieStore.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/SkillspotApplication.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/configurator/JwtAudienceValidator.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/configurator/SecurityConfig.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/AnbieterController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/BenutzerController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/BewertungController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/BuchungController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/DienstleistungController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/KategorieController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/controller/MeController.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/dto/AnbieterDto.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/dto/BenutzerDto.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/dto/BewertungDto.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/dto/BuchungDto.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/dto/DienstleistungDto.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/dto/KategorieDto.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/entity/AnbieterEntity.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/entity/BenutzerEntity.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/entity/BewertungEntity.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/entity/BuchungEntity.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/entity/DienstleistungEntity.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/entity/KategorieEntity.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/mapper/AnbieterMapper.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/mapper/BenutzerMapper.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/mapper/BewertungMapper.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/mapper/BuchungMapper.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/mapper/DienstleistungMapper.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/mapper/KategorieMapper.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/service/AnbieterService.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/service/BenutzerService.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/service/BewertungService.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/service/BuchungService.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/service/DienstleistungService.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/service/KategorieService.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/store/AnbieterStore.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/store/BenutzerStore.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/store/BewertungStore.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/store/BuchungStore.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/store/DienstleistungStore.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/main/java/de/skillspot/store/KategorieStore.java

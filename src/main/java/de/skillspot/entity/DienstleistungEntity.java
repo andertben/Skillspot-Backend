@@ -3,6 +3,8 @@ package de.skillspot.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "dienstleistung", schema = "skillspot")
 @Data
@@ -23,5 +25,5 @@ public class DienstleistungEntity {
     Long kategorieId;
     String title;
     String beschreibung;
-    Double preis;
+    BigDecimal preis;
 }

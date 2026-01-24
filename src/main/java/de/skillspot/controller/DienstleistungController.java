@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dienstleistungen")
+@RequestMapping({"/services", "/dienstleistungen"})
 public class DienstleistungController {
 
     private final DienstleistungService dienstleistungService;
@@ -21,13 +21,20 @@ public class DienstleistungController {
         this.dienstleistungService = dienstleistungService;
     }
 
-    @Operation(summary = "Get all services")
+    @Operation(summary = "Get all services", description = "Aliases: /services, /dienstleistungen")
     @GetMapping
     public ResponseEntity<List<DienstleistungDto>> loadServices() {
         return ResponseEntity.ok(dienstleistungService.loadServices());
     }
 
-    @Operation(summary = "Create a new service (Anbieter only)")
+    @Operation(summary = "Get my services (Anbieter only)", description = "Aliases: /services/my, /dienstleistungen/my")
+    @GetMapping("/my")
+    public ResponseEntity<List<DienstleistungDto>> loadMyServices(JwtAuthenticationToken auth) {
+        String userSub = auth.getToken().getClaimAsString("sub");
+        return ResponseEntity.ok(dienstleistungService.loadMyServices(userSub));
+    }
+
+    @Operation(summary = "Create a new service (Anbieter only)", description = "Aliases: /services, /dienstleistungen")
     @PostMapping
     public ResponseEntity<DienstleistungResponse> createDienstleistung(
             @RequestBody CreateDienstleistungRequest request,

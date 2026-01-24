@@ -22,12 +22,12 @@ public class KategorieService {
         this.kategorieMapper = kategorieMapper;
     }
 
-    public List<KategorieDto> loadcategories(){
-        return categoryStore.loadcategories().stream().map(kategorieMapper::toDto).toList();
+    public List<KategorieDto> loadcategories(String lang){
+        return categoryStore.loadcategories(lang).stream().map(kategorieMapper::toDto).toList();
     }
 
-    public List<KategorieTreeDto> getCategoryTree() {
-        List<KategorieEntity> allCategories = categoryStore.loadcategories();
+    public List<KategorieTreeDto> getCategoryTree(String lang) {
+        List<KategorieEntity> allCategories = categoryStore.loadcategories(lang);
 
         // Map parentId to list of children
         Map<Long, List<KategorieEntity>> childrenByParent = allCategories.stream()

@@ -42,6 +42,19 @@ public class DienstleistungStore {
         );
     }
 
+    public java.util.Optional<DienstleistungEntity> findById(Long id) {
+        List<DienstleistungEntity> results = jdbcTemplate.query(
+                "SELECT * FROM skillspot.dienstleistung WHERE dienstleistung_id = ?;",
+                dienstleistungRowMapper,
+                id
+        );
+        return results.stream().findFirst();
+    }
+
+    public void deleteById(Long id) {
+        jdbcTemplate.update("DELETE FROM skillspot.dienstleistung WHERE dienstleistung_id = ?;", id);
+    }
+
     public DienstleistungEntity save(DienstleistungEntity entity) {
         String sql = "INSERT INTO skillspot.dienstleistung (anbieter_id, kategorie_id, title, beschreibung) VALUES (?, ?, ?, ?) RETURNING dienstleistung_id";
 

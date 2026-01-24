@@ -42,4 +42,12 @@ public class DienstleistungController {
         String userSub = auth.getToken().getClaimAsString("sub");
         return ResponseEntity.ok(dienstleistungService.createDienstleistung(userSub, request));
     }
+
+    @Operation(summary = "Delete a service (Anbieter only)", description = "Aliases: /services/{id}, /dienstleistungen/{id}")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDienstleistung(@PathVariable Long id, JwtAuthenticationToken auth) {
+        String userSub = auth.getToken().getClaimAsString("sub");
+        dienstleistungService.deleteDienstleistung(userSub, id);
+        return ResponseEntity.noContent().build();
+    }
 }

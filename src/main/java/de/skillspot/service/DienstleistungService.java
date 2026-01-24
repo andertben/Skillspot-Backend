@@ -102,4 +102,36 @@ public class DienstleistungService {
                 .kategorieId(saved.getKategorieId())
                 .build();
     }
+
+    public void deleteDienstleistung(String userSub, Long dienstleistungId) {
+        log.info("User {} attempting to delete dienstleistung {}", userSub, dienstleistungId);
+
+        // 1. Find User
+        BenutzerEntity benutzer = benutzerStore.findByAuth0Sub(userSub)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        // 2. Find Anbieter
+        AnbieterEntity anbieter = anbieterStore.findByBenutzerId(benutzer.getBenutzerId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not an Anbieter"));
+
+        // 3. Find Dienstleistung
+        DienstleistungEntity dienstleistung = dienstleistungStore.findById(dienstleistungId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Dienstleistung not found"));
+
+        // 4. Ownership check
+        if (!dienstleistung.getAnbieterId().equals(anbieter.getAnbieterId())) {
+            log.warn("User {} (Anbieter {}) tried to delete dienstleistung {} owned by Anbieter {}",
+                    userSub, anbieter.getAnbieterId(), dienstleistungId, dienstleistung.getAnbieterId());
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You do not own this service");
+        }
+
+        // 5. Delete
+        try {
+            dienstleistungStore.deleteById(dienstleistungId);
+            log.info("Dienstleistung {} deleted successfully", dienstleistungId);
+        } catch (Exception e) {
+            log.error("Failed to delete dienstleistung {}: {}", dienstleistungId, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cannot delete service. It might be referenced by bookings or chat threads.");
+        }
+    }
 }

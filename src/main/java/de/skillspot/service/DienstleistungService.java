@@ -48,6 +48,19 @@ public class DienstleistungService {
                 .toList();
     }
 
+    public List<DienstleistungDto> loadMyServices(String userSub) {
+        BenutzerEntity benutzer = benutzerStore.findByAuth0Sub(userSub)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        AnbieterEntity anbieter = anbieterStore.findByBenutzerId(benutzer.getBenutzerId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not an Anbieter"));
+
+        return dienstleistungStore.loadByAnbieterId(anbieter.getAnbieterId())
+                .stream()
+                .map(dienstleistungMapper::toDto)
+                .toList();
+    }
+
     public DienstleistungResponse createDienstleistung(String userSub, CreateDienstleistungRequest request) {
         log.info("Creating dienstleistung for userSub: {}", userSub);
 
@@ -64,10 +77,6 @@ public class DienstleistungService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title is required");
         }
 
-        if (request.getPreis() != null && request.getPreis() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Price must be >= 0");
-        }
-
         // 4. Validate Kategorie
         KategorieEntity kategorie = kategorieStore.findById(request.getKategorieId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Kategorie not found"));
@@ -82,7 +91,6 @@ public class DienstleistungService {
                 .kategorieId(request.getKategorieId())
                 .title(request.getTitle())
                 .beschreibung(request.getBeschreibung())
-                .preis(request.getPreis())
                 .build();
 
         DienstleistungEntity saved = dienstleistungStore.save(entity);
@@ -91,7 +99,6 @@ public class DienstleistungService {
         return DienstleistungResponse.builder()
                 .dienstleistungId(saved.getDienstleistungId())
                 .title(saved.getTitle())
-                .preis(saved.getPreis())
                 .kategorieId(saved.getKategorieId())
                 .build();
     }

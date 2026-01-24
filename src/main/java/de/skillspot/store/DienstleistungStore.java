@@ -23,7 +23,7 @@ public class DienstleistungStore {
                     .kategorieId(row.getLong("kategorie_id"))
                     .title(row.getString("title"))
                     .beschreibung(row.getString("beschreibung"))
-                    .preis(row.getObject("preis") != null ? row.getDouble("preis") : null)
+                    .preis(row.getBigDecimal("preis"))
                     .build();
 
     public DienstleistungStore(JdbcTemplate jdbcTemplate) {
@@ -34,26 +34,28 @@ public class DienstleistungStore {
         return jdbcTemplate.query("SELECT * FROM skillspot.dienstleistung;", dienstleistungRowMapper);
     }
 
+    public List<DienstleistungEntity> loadByAnbieterId(Long anbieterId) {
+        return jdbcTemplate.query(
+                "SELECT * FROM skillspot.dienstleistung WHERE anbieter_id = ?;",
+                dienstleistungRowMapper,
+                anbieterId
+        );
+    }
+
     public DienstleistungEntity save(DienstleistungEntity entity) {
-        String sql = "INSERT INTO skillspot.dienstleistung (anbieter_id, kategorie_id, title, beschreibung, preis) VALUES (?, ?, ?, ?, ?)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+        String sql = "INSERT INTO skillspot.dienstleistung (anbieter_id, kategorie_id, title, beschreibung) VALUES (?, ?, ?, ?) RETURNING dienstleistung_id";
 
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setLong(1, entity.getAnbieterId());
-            ps.setLong(2, entity.getKategorieId());
-            ps.setString(3, entity.getTitle());
-            ps.setString(4, entity.getBeschreibung());
-            if (entity.getPreis() != null) {
-                ps.setDouble(5, entity.getPreis());
-            } else {
-                ps.setNull(5, java.sql.Types.DOUBLE);
-            }
-            return ps;
-        }, keyHolder);
+        Long generatedId = jdbcTemplate.queryForObject(
+                sql,
+                Long.class,
+                entity.getAnbieterId(),
+                entity.getKategorieId(),
+                entity.getTitle(),
+                entity.getBeschreibung()
+        );
 
-        if (keyHolder.getKey() != null) {
-            entity.setDienstleistungId(keyHolder.getKey().longValue());
+        if (generatedId != null) {
+            entity.setDienstleistungId(generatedId);
         }
         return entity;
     }

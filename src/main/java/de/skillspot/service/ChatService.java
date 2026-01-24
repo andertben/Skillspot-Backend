@@ -99,11 +99,15 @@ public class ChatService {
         return mapToThreadResponse(thread);
     }
 
+    @Transactional
     public List<ChatMessageDto> getMessages(String userSub, Long threadId) {
         ChatThreadEntity thread = chatThreadRepository.findById(threadId)
                 .orElseThrow(() -> new IllegalArgumentException("Thread not found"));
 
         validateParticipant(userSub, thread);
+
+        // Mark messages as read when opening the thread
+        chatMessageRepository.markMessagesAsRead(threadId, userSub);
 
         return chatMessageRepository.findAllByThreadIdOrderByCreatedAtAsc(threadId)
                 .stream()

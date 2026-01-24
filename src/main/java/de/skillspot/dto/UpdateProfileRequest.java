@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,4 +22,8 @@ public class UpdateProfileRequest {
     private String role;
 
     private String address;
+
+    private BigDecimal locationLat;
+
+    private BigDecimal locationLon;
 }

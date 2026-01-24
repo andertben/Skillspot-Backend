@@ -67,10 +67,11 @@ public class BenutzerService {
             throw new IllegalArgumentException("Address is required for PROVIDER");
         }
 
-        BigDecimal lat = null;
-        BigDecimal lon = null;
+        BigDecimal lat = req.getLocationLat();
+        BigDecimal lon = req.getLocationLon();
 
-        if ("PROVIDER".equals(req.getRole()) && req.getAddress() != null && !req.getAddress().isBlank()) {
+        // Nur Geocoding falls Koordinaten fehlen aber Adresse vorhanden ist
+        if ("PROVIDER".equals(req.getRole()) && (lat == null || lon == null) && req.getAddress() != null && !req.getAddress().isBlank()) {
             GeocodingResult result = geocodeAddress(req.getAddress());
             lat = new BigDecimal(result.getLat());
             lon = new BigDecimal(result.getLon());

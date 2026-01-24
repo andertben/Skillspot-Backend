@@ -24,6 +24,7 @@ de/skillspot/SkillspotApplication.class
 de/skillspot/entity/AnbieterEntity.class
 de/skillspot/dto/ThreadResponse.class
 de/skillspot/dto/MeResponse$MeResponseBuilder.class
+de/skillspot/dto/CreateBewertungRequest$CreateBewertungRequestBuilder.class
 de/skillspot/controller/ChatController.class
 de/skillspot/entity/ChatMessageEntity.class
 de/skillspot/entity/BenutzerEntity$BenutzerEntityBuilder.class
@@ -41,6 +42,7 @@ de/skillspot/service/ChatService.class
 de/skillspot/controller/KategorieController.class
 de/skillspot/controller/MeController.class
 de/skillspot/service/BuchungService.class
+de/skillspot/dto/CreateBewertungRequest.class
 de/skillspot/entity/ChatThreadEntity$ChatThreadEntityBuilder.class
 de/skillspot/dto/CompleteProfileRequest.class
 de/skillspot/dto/KategorieDto$KategorieDtoBuilder.class

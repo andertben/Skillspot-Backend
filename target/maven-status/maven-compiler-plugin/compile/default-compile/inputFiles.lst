@@ -16,6 +16,7 @@
 /Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/BuchungDto.java
 /Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/ChatMessageDto.java
 /Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CompleteProfileRequest.java
+/Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CreateBewertungRequest.java
 /Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CreateDienstleistungRequest.java
 /Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/CreateThreadRequest.java
 /Users/bennet/Downloads/Skillspot-Backend/src/main/java/de/skillspot/dto/DienstleistungDto.java

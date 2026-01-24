@@ -1,11 +1,12 @@
 package de.skillspot.controller;
 
 import de.skillspot.dto.BewertungDto;
+import de.skillspot.dto.CreateBewertungRequest;
 import de.skillspot.service.BewertungService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,6 +37,14 @@ public class BewertungController {
     @GetMapping({"/api/reviews/average/{serviceId}", "/bewertungen/average/{serviceId}"})
     public ResponseEntity<Double> getAverageRating(@PathVariable Long serviceId) {
         return ResponseEntity.ok(bewertungService.getAverageRatingByServiceId(serviceId));
+    }
+
+    @PostMapping({"/bewertungen", "/api/reviews", "/reviews"})
+    public ResponseEntity<BewertungDto> createBewertung(
+            @Valid @RequestBody CreateBewertungRequest request,
+            JwtAuthenticationToken auth) {
+        String userSub = auth.getToken().getClaimAsString("sub");
+        return ResponseEntity.ok(bewertungService.createBewertung(userSub, request));
     }
 }
 

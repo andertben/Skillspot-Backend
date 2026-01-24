@@ -14,16 +14,21 @@ import java.math.BigDecimal;
 public class AnbieterEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "anbieter_id")
     Long anbieterId;
     
+    @Column(name = "benutzer_id")
     Long benutzerId;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "benutzerId", insertable = false, updatable = false)
+    @JoinColumn(name = "benutzer_id", insertable = false, updatable = false)
     private BenutzerEntity benutzer;
     
+    @Column(name = "firmen_name")
     String firmenName;
     String beschreibung;
+    @Column(name = "location_lat")
     BigDecimal locationLat;
+    @Column(name = "location_lon")
     BigDecimal locationLon;
 }

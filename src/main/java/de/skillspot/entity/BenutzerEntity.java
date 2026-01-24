@@ -15,18 +15,25 @@ import java.time.LocalDateTime;
 public class BenutzerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "benutzer_id")
     Long benutzerId;
     String vorname;
     String nachname;
     String email;
+    @Column(name = "password_hash")
     String passwordHash;
-    @Column(unique = true)
+    @Column(name = "auth0_sub", unique = true)
     String auth0Sub;
     String rolle;
+    @Column(name = "display_name")
     String displayName;
     String address;
+    @Column(name = "location_lat")
     BigDecimal locationLat;
+    @Column(name = "location_lon")
     BigDecimal locationLon;
+    @Column(name = "created_at")
     LocalDateTime createdAt;
+    @Column(name = "updated_at")
     LocalDateTime updatedAt;
 }

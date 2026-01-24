@@ -14,14 +14,17 @@ import java.math.BigDecimal;
 public class DienstleistungEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "dienstleistung_id")
     Long dienstleistungId;
     
+    @Column(name = "anbieter_id")
     Long anbieterId;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "anbieterId", insertable = false, updatable = false)
+    @JoinColumn(name = "anbieter_id", insertable = false, updatable = false)
     private AnbieterEntity anbieter;
     
+    @Column(name = "kategorie_id")
     Long kategorieId;
     String title;
     String beschreibung;

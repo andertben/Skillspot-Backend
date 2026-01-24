@@ -7,6 +7,7 @@ import de.skillspot.dto.UnreadCountResponse;
 import de.skillspot.entity.*;
 import de.skillspot.repository.ChatMessageRepository;
 import de.skillspot.repository.ChatThreadRepository;
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,22 +26,25 @@ public class ChatService {
 
     private final ChatThreadRepository chatThreadRepository;
     private final ChatMessageRepository chatMessageRepository;
+    private final EntityManager entityManager;
 
-    public ChatService(ChatThreadRepository chatThreadRepository, ChatMessageRepository chatMessageRepository) {
+    public ChatService(ChatThreadRepository chatThreadRepository, ChatMessageRepository chatMessageRepository, EntityManager entityManager) {
         this.chatThreadRepository = chatThreadRepository;
         this.chatMessageRepository = chatMessageRepository;
+        this.entityManager = entityManager;
     }
 
     @Transactional
     public ChatThreadEntity getOrCreateThread(String userSub, Long dienstleistungId) {
         return chatThreadRepository.findByUserSubAndDienstleistungId(userSub, dienstleistungId)
                 .orElseGet(() -> {
-                    log.info("Creating new chat thread for userSub: {} and dienstleistungId: {}", userSub, dienstleistungId);
                     ChatThreadEntity newThread = ChatThreadEntity.builder()
                             .userSub(userSub)
                             .dienstleistungId(dienstleistungId)
+                            .dienstleistung(entityManager.getReference(DienstleistungEntity.class, dienstleistungId))
                             .build();
                     chatThreadRepository.saveAndFlush(newThread);
+                    
                     // Reload to get relationships (dienstleistung -> anbieter -> benutzer) populated
                     return chatThreadRepository.findByUserSubAndDienstleistungId(userSub, dienstleistungId)
                             .orElseThrow(() -> new RuntimeException("Failed to reload created thread"));

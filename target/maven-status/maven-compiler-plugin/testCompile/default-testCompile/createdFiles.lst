@@ -1,1 +1,8 @@
+de/skillspot/ChatThreadIntegrationTest.class
+de/skillspot/SecuritySmokeTest.class
+de/skillspot/KategorieI18nIntegrationTest.class
+de/skillspot/BewertungIntegrationTest.class
+de/skillspot/AbstractIntegrationTest.class
 de/skillspot/app/SkillspotApplicationTests.class
+de/skillspot/MeIntegrationTest.class
+de/skillspot/DienstleistungIntegrationTest.class

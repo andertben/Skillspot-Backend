@@ -17,13 +17,14 @@ public class ChatThreadEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "thread_id")
     private Long threadId;
 
     @Column(name = "dienstleistung_id", nullable = false)
     private Long dienstleistungId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dienstleistung_id", insertable = false, updatable = false)
+    @JoinColumn(name = "dienstleistung_id", referencedColumnName = "dienstleistung_id", insertable = false, updatable = false)
     private DienstleistungEntity dienstleistung;
 
     @Column(nullable = false)

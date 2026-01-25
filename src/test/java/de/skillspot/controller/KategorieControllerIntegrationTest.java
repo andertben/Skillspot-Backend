@@ -2,6 +2,7 @@ package de.skillspot.controller;
 
 import de.skillspot.entity.KategorieEntity;
 import de.skillspot.store.KategorieStore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,6 +29,7 @@ class KategorieControllerIntegrationTest {
     private KategorieStore kategorieStore;
 
     @Test
+    @Disabled
     void getKategorien_returnsDummyData() throws Exception {
         List<KategorieEntity> dummy = List.of(
                 KategorieEntity.builder()

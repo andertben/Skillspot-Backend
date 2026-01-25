@@ -22,6 +22,9 @@ public class SecurityConfig {
 	@Value("${app.auth0.audience}")
 	private String audience;
 
+	@Value("${app.frontend.origin}")
+	private String frontendOrigin;
+
 	private static final String FRONTEND_ORIGIN = "http://localhost:5173";
 
 	private static final String[] PUBLIC_ENDPOINTS = {
@@ -39,6 +42,9 @@ public class SecurityConfig {
 		http
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.csrf(csrf -> csrf.disable())
+				.sessionManagement(session -> session
+						.sessionCreationPolicy(org.springframework.security.config.http.SessionCreationPolicy.STATELESS)
+				)
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(org.springframework.http.HttpMethod.GET, "/dienstleistungen").permitAll()
 						.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
@@ -76,7 +82,7 @@ public class SecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
 
-		config.setAllowedOrigins(List.of(FRONTEND_ORIGIN));
+		config.setAllowedOrigins(List.of(frontendOrigin, FRONTEND_ORIGIN));
 		config.setAllowedMethods(List.of(
 				"GET", "POST", "PUT", "DELETE", "OPTIONS"
 		));

@@ -25,7 +25,8 @@ public class SecurityConfig {
 	@Value("${app.frontend.origin}")
 	private String frontendOrigin;
 
-	private static final String FRONTEND_ORIGIN = "http://localhost:5173";
+	private static final String FRONTEND_ORIGIN_LOCAL = "http://localhost:5173";
+	private static final String FRONTEND_ORIGIN_PROD = "https://skillspot.site";
 
 	private static final String[] PUBLIC_ENDPOINTS = {
 			"/kategorien/**",
@@ -82,7 +83,11 @@ public class SecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
 
-		config.setAllowedOrigins(List.of(frontendOrigin, FRONTEND_ORIGIN));
+		config.setAllowedOrigins(List.of(
+				frontendOrigin,
+				FRONTEND_ORIGIN_LOCAL,
+				FRONTEND_ORIGIN_PROD
+		));
 		config.setAllowedMethods(List.of(
 				"GET", "POST", "PUT", "DELETE", "OPTIONS"
 		));

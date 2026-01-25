@@ -1,8 +1,9 @@
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/AbstractIntegrationTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/BewertungIntegrationTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/ChatThreadIntegrationTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/DienstleistungIntegrationTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/KategorieI18nIntegrationTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/MeIntegrationTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/SecuritySmokeTest.java
-/Users/bennet/Downloads/Skillspot-Backend/src/test/java/de/skillspot/app/SkillspotApplicationTests.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/AbstractIntegrationTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/BewertungIntegrationTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/ChatThreadIntegrationTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/DienstleistungIntegrationTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/KategorieI18nIntegrationTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/MeIntegrationTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/SecuritySmokeTest.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/app/SkillspotApplicationTests.java
+/Users/ben/Documents/5. Semester/Frameworks für Webbasierte Anwendungen /skilllspot/src/test/java/de/skillspot/controller/KategorieControllerIntegrationTest.java

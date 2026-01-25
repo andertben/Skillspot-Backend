@@ -17,7 +17,7 @@ public class SecurityConfig {
 
 	private static final List<String> FRONTEND_ORIGINS = List.of(
 			"http://localhost:5173",
-			"http://188.245.196.16:8081"
+			"https://skillspot.site"
 	);
 
 	private static final String[] PUBLIC_ENDPOINTS = {

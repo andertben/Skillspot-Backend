@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-01-25T18:16:30+0100",
-    comments = "version: 1.6.3, compiler: javac, environment: Java 25.0.2 (Homebrew)"
+    date = "2026-01-25T20:25:20+0100",
+    comments = "version: 1.6.3, compiler: javac, environment: Java 17.0.8.1 (Eclipse Adoptium)"
 )
 @Component
 public class BuchungMapperImpl implements BuchungMapper {

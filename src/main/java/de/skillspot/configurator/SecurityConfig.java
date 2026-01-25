@@ -15,7 +15,10 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-	private static final String FRONTEND_ORIGIN = "http://localhost:5173";
+	private static final List<String> FRONTEND_ORIGINS = List.of(
+			"http://localhost:5173",
+			"http://188.245.196.16:8081"
+	);
 
 	private static final String[] PUBLIC_ENDPOINTS = {
 			"/kategorien/**",
@@ -69,9 +72,9 @@ public class SecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
 
-		config.setAllowedOrigins(List.of(FRONTEND_ORIGIN));
+		config.setAllowedOrigins(FRONTEND_ORIGINS);
 		config.setAllowedMethods(List.of(
-				"GET", "POST", "PUT", "DELETE", "OPTIONS"
+				"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
 		));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);

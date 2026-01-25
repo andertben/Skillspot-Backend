@@ -11,13 +11,17 @@ import java.util.Collection;
 
 public class JwtAudienceValidator implements OAuth2TokenValidator<Jwt> {
 
-	private static final String EXPECTED_AUDIENCE = "https://skillspot-api";
+	private final String expectedAudience;
+
+	public JwtAudienceValidator(String expectedAudience) {
+		this.expectedAudience = expectedAudience;
+	}
 
 	@Override
 	public OAuth2TokenValidatorResult validate(Jwt jwt) {
 		Collection<String> audienceClaims = jwt.getAudience();
 
-		if (CollectionUtils.isEmpty(audienceClaims) || !audienceClaims.contains(EXPECTED_AUDIENCE)) {
+		if (CollectionUtils.isEmpty(audienceClaims) || !audienceClaims.contains(expectedAudience)) {
 			return OAuth2TokenValidatorResult.failure(new OAuth2Error(
 					OAuth2ErrorCodes.INVALID_TOKEN,
 					"The audience claim does not contain the expected audience",

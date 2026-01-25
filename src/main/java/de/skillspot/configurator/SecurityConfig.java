@@ -1,10 +1,8 @@
 package de.skillspot.configurator;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,14 +15,7 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
-	@Value("${app.frontend.origin:http://localhost:5173}")
-	private String frontendOrigin;
-
-	@Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
-	private String issuerUri;
-
-	@Value("${app.auth0.audience:https://skillspot-api}")
-	private String audience;
+	private static final String FRONTEND_ORIGIN = "http://localhost:5173";
 
 	private static final String[] PUBLIC_ENDPOINTS = {
 			"/kategorien/**",
@@ -41,7 +32,6 @@ public class SecurityConfig {
 		http
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.csrf(csrf -> csrf.disable())
-				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers(org.springframework.http.HttpMethod.GET, "/dienstleistungen").permitAll()
 						.requestMatchers(PUBLIC_ENDPOINTS).permitAll()
@@ -62,13 +52,13 @@ public class SecurityConfig {
 	@Bean
 	public JwtDecoder jwtDecoder() {
 		NimbusJwtDecoder jwtDecoder = NimbusJwtDecoder
-				.withIssuerLocation(issuerUri)
+				.withIssuerLocation("https://dev-cuabf3ql66715pfn.us.auth0.com/")
 				.build();
 
 		jwtDecoder.setJwtValidator(
 				new org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator(
 						new org.springframework.security.oauth2.jwt.JwtTimestampValidator(),
-						new JwtAudienceValidator(audience)
+						new JwtAudienceValidator()
 				)
 		);
 
@@ -79,11 +69,11 @@ public class SecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
 
-		config.setAllowedOrigins(List.of(frontendOrigin));
+		config.setAllowedOrigins(List.of(FRONTEND_ORIGIN));
 		config.setAllowedMethods(List.of(
 				"GET", "POST", "PUT", "DELETE", "OPTIONS"
 		));
-		config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source =

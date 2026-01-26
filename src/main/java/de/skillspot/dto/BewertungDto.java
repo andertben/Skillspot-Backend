@@ -11,7 +11,6 @@ public class BewertungDto {
     Long dienstleistungId;
     Long benutzerId;
     Long anbieterId;
-    Long buchungId;
     Integer bewertung;
     String text;
     LocalDateTime erstellungsDatum;

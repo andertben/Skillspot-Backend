@@ -1,7 +1,5 @@
 package de.skillspot.mapper;
 
-import de.skillspot.dto.BuchungDto;
-import de.skillspot.entity.BuchungEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 

@@ -13,7 +13,6 @@ public class BewertungEntity {
     Long dienstleistungId;
     Long benutzerId;
     Long anbieterId;
-    Long buchungId;
     Integer bewertung;
     String text;
     LocalDateTime erstellungsDatum;
